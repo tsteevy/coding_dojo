@@ -3,18 +3,16 @@ class PotterKata {
     static PRICE_FOR_ONE_BOOK = 8
 
     static getBookPricesWithCalculatedDiscounts(List<Integer> booksCurrentlyChosen){
-        booksCurrentlyChosen.sort()
         def differentBookSets = assembleDifferentBooksets(buildFrequencyTable(booksCurrentlyChosen))
-
         def totalBookPrice = 0
         differentBookSets.each {count ->
-            totalBookPrice += getPriceForSet(count) * (1.0 - getDiscountForDifferentBooks(count))
+            totalBookPrice += getStandardPriceForSet(count) * (1.0 - getDiscountForDifferentBooks(count))
         }
 
         return totalBookPrice
     }
 
-    static float getPriceForSet(Integer differentBookCount) {
+    static float getStandardPriceForSet(Integer differentBookCount) {
         return differentBookCount * PRICE_FOR_ONE_BOOK
     }
 
@@ -39,17 +37,32 @@ class PotterKata {
             def differentBooks = 0
 
             frequencyTable.each { bookId, frequency ->
-                if (frequency > 0) {
+                if (frequency > 0 && remainingBookCount > 0) {
                     frequencyTable.put(bookId, frequency - 1)
+                    remainingBookCount--
                     differentBooks++
                 }
+
+                if (remainingBookCount == 4 && remainingBookCount == getDifferentGroupCount(frequencyTable)){
+                    differentBookSets.add(remainingBookCount)
+                    remainingBookCount = 0
+                }
             }
-            remainingBookCount -= differentBooks
 
             differentBookSets.add(differentBooks)
         }
 
         return differentBookSets
+    }
+
+    static Integer getDifferentGroupCount(frequencyTable){
+        def groupCount = 0
+        frequencyTable.each { bookId, frequency ->
+            if (frequency > 0){
+                groupCount++
+            }
+        }
+        return groupCount
     }
 
     static getTotalBookCount(frequencyTable){
@@ -71,6 +84,6 @@ class PotterKata {
     }
 
     static void main(String... args) {
-        println(getBookPricesWithCalculatedDiscounts([1, 1, 1, 1, 2, 3]).round(2))
+        println(getBookPricesWithCalculatedDiscounts([0, 0, 1, 1, 2, 2, 3, 4]))
     }
 }
