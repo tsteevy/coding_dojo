@@ -1,39 +1,39 @@
 class PotterKata {
 
-    static PRICE_FOR_ONE_BOOK = 8.0f
+    static PRICE_FOR_ONE_BOOK = 8
 
-    static price (List<Integer> shoppingCartContents){
-        shoppingCartContents.sort()
-        def differentBookSets = assembleSets(buildFrequencyTable(shoppingCartContents))
+    static getBookPricesWithCalculatedDiscounts(List<Integer> booksCurrentlyChosen){
+        booksCurrentlyChosen.sort()
+        def differentBookSets = assembleDifferentBooksets(buildFrequencyTable(booksCurrentlyChosen))
 
-        def totalPrice = 0
+        def totalBookPrice = 0
         differentBookSets.each {count ->
-            totalPrice += getPriceForSet(count) * (1.0f - discountForSet(count))
+            totalBookPrice += getPriceForSet(count) * (1.0 - getDiscountForDifferentBooks(count))
         }
 
-        return totalPrice
+        return totalBookPrice
     }
 
     static float getPriceForSet(Integer differentBookCount) {
         return differentBookCount * PRICE_FOR_ONE_BOOK
     }
 
-    static float discountForSet(int differentBookCount){
+    static float getDiscountForDifferentBooks(int differentBookCount){
         switch (differentBookCount){
             case 2:
-                return 0.05f
+                return 0.05
             case 3:
-                return 0.1f
+                return 0.1
             case 4:
-                return 0.2f
+                return 0.2
             case 5:
-                return 0.25f
+                return 0.25
 
         }
-        return 0.0f
+        return 0.0
     }
 
-    static List<Integer> assembleSets(frequencyTable){
+    static List<Integer> assembleDifferentBooksets(frequencyTable){
         def stillAtLeastOneBook = true
         def differentBookSets = []
         while (stillAtLeastOneBook) {
@@ -56,17 +56,17 @@ class PotterKata {
         return differentBookSets
     }
 
-    static buildFrequencyTable(List<Integer> shoppingCartContents) {
-        def fullCollection = [0, 1, 2, 3, 4]
+    static buildFrequencyTable(List<Integer> booksCurrentlyChosen) {
+        def bookIndicesOfCollection = [0, 1, 2, 3, 4]
         def frequencyTable = [:]
-        fullCollection.each{id ->
-            frequencyTable.put(id, shoppingCartContents.count(id))
+        bookIndicesOfCollection.each{id ->
+            frequencyTable.put(id, booksCurrentlyChosen.count(id))
         }
 
         return frequencyTable
     }
 
     static void main(String... args) {
-        println(price([0, 1, 1, 2, 3, 4]))
+        println(getBookPricesWithCalculatedDiscounts([1, 1, 1, 1, 2, 3]).round(2))
     }
 }
