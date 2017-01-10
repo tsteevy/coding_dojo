@@ -28,32 +28,36 @@ class PotterKata {
                 return 0.2
             case 5:
                 return 0.25
-
         }
         return 0.0
     }
 
     static List<Integer> assembleDifferentBooksets(frequencyTable){
-        def stillAtLeastOneBook = true
+        def remainingBookCount = getTotalBookCount(frequencyTable)
         def differentBookSets = []
-        while (stillAtLeastOneBook) {
-            stillAtLeastOneBook = false
+        while (remainingBookCount > 0) {
             def differentBooks = 0
 
             frequencyTable.each { bookId, frequency ->
                 if (frequency > 0) {
-                    stillAtLeastOneBook = true
                     frequencyTable.put(bookId, frequency - 1)
                     differentBooks++
                 }
             }
+            remainingBookCount -= differentBooks
 
-            if (differentBooks > 0) {
-                differentBookSets.add(differentBooks)
-            }
+            differentBookSets.add(differentBooks)
         }
 
         return differentBookSets
+    }
+
+    static getTotalBookCount(frequencyTable){
+        def totalCount = 0
+        frequencyTable.each { k, frequency ->
+            totalCount += frequency
+        }
+        return totalCount
     }
 
     static buildFrequencyTable(List<Integer> booksCurrentlyChosen) {
