@@ -1,14 +1,14 @@
 class PotterKataTest extends GroovyTestCase {
 
     void testBasics() {
-        assert 0 == PotterKata.getBookPricesWithCalculatedDiscounts([])
-        assert 8 == PotterKata.getBookPricesWithCalculatedDiscounts([0])
-        assert 8 == PotterKata.getBookPricesWithCalculatedDiscounts([1])
-        assert 8 == PotterKata.getBookPricesWithCalculatedDiscounts([2])
-        assert 8 == PotterKata.getBookPricesWithCalculatedDiscounts([3])
-        assert 8 == PotterKata.getBookPricesWithCalculatedDiscounts([4])
-        assert 8 * 2 == PotterKata.getBookPricesWithCalculatedDiscounts([0, 0])
-        assert 8 * 3 == PotterKata.getBookPricesWithCalculatedDiscounts([1, 1, 1])
+        assert 0.0 == PotterKata.getBookPricesWithCalculatedDiscounts([])
+        assert 8.0 == PotterKata.getBookPricesWithCalculatedDiscounts([0])
+        assert 8.0 == PotterKata.getBookPricesWithCalculatedDiscounts([1])
+        assert 8.0 == PotterKata.getBookPricesWithCalculatedDiscounts([2])
+        assert 8.0 == PotterKata.getBookPricesWithCalculatedDiscounts([3])
+        assert 8.0 == PotterKata.getBookPricesWithCalculatedDiscounts([4])
+        assert 8.0 * 2 == PotterKata.getBookPricesWithCalculatedDiscounts([0, 0])
+        assert 8.0 * 3 == PotterKata.getBookPricesWithCalculatedDiscounts([1, 1, 1])
     }
 
     void testSimpleDiscounts() {

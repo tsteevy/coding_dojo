@@ -1,22 +1,24 @@
+import java.math.RoundingMode
+
 class PotterKata {
 
-    static PRICE_FOR_ONE_BOOK = 8
+    static PRICE_FOR_ONE_BOOK = 8.0
 
     static getBookPricesWithCalculatedDiscounts(List<Integer> booksCurrentlyChosen){
         def differentBookSets = assembleDifferentBooksets(buildFrequencyTable(booksCurrentlyChosen))
-        def totalBookPrice = 0
+        def totalBookPrice = 0.0
         differentBookSets.each {count ->
-            totalBookPrice += getStandardPriceForSet(count) * (1.0 - getDiscountForDifferentBooks(count))
+            totalBookPrice = totalBookPrice + getStandardPriceForSet(count) * (1.0 - getDiscountForDifferentBooks(count))
         }
 
-        return totalBookPrice.round(2)
+        return totalBookPrice.setScale(2, RoundingMode.HALF_EVEN)
     }
 
-    static float getStandardPriceForSet(Integer differentBookCount) {
+    static getStandardPriceForSet(Integer differentBookCount) {
         return differentBookCount * PRICE_FOR_ONE_BOOK
     }
 
-    static float getDiscountForDifferentBooks(int differentBookCount){
+    static getDiscountForDifferentBooks(differentBookCount){
         switch (differentBookCount){
             case 2:
                 return 0.05
@@ -43,7 +45,8 @@ class PotterKata {
                     differentBooks++
                 }
 
-                if (remainingBookCount == 4 && remainingBookCount == getDifferentGroupCount(frequencyTable)){
+                if (remainingBookCount == 4 && remainingBookCount == getDifferentGroupCount(frequencyTable) &&
+                bookId > 1){
                     differentBookSets.add(remainingBookCount)
                     remainingBookCount = 0
                 }
@@ -55,7 +58,7 @@ class PotterKata {
         return differentBookSets
     }
 
-    static Integer getDifferentGroupCount(frequencyTable){
+    static getDifferentGroupCount(frequencyTable){
         def groupCount = 0
         frequencyTable.each { bookId, frequency ->
             if (frequency > 0){
