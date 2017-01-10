@@ -9,7 +9,7 @@ class PotterKata {
             totalBookPrice += getStandardPriceForSet(count) * (1.0 - getDiscountForDifferentBooks(count))
         }
 
-        return totalBookPrice
+        return totalBookPrice.round(2)
     }
 
     static float getStandardPriceForSet(Integer differentBookCount) {
