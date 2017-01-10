@@ -3,12 +3,21 @@ import java.math.RoundingMode
 class PotterKata {
 
     static PRICE_FOR_ONE_BOOK = 8.0
+    static BEST_VALUE_FOR_MONEY = 4
+    static COUNT_OF_ALL_EDITIONS = 5
+    static DISCOUNT_FOR_BOOKCOUNT = [
+            2: 0.05,
+            3: 0.1,
+            4: 0.2,
+            5: 0.25
+    ]
 
     static getBookPricesWithCalculatedDiscounts(List<Integer> booksCurrentlyChosen){
         def differentBookSets = assembleDifferentBooksets(buildFrequencyTable(booksCurrentlyChosen))
         def totalBookPrice = 0.0
-        differentBookSets.each {count ->
-            totalBookPrice = totalBookPrice + getStandardPriceForSet(count) * (1.0 - getDiscountForDifferentBooks(count))
+        differentBookSets.each { count ->
+            totalBookPrice = totalBookPrice + getStandardPriceForSet(count) *
+                    (1.0 - getDiscountForDifferentBooks(count))
         }
 
         return totalBookPrice.setScale(2, RoundingMode.HALF_EVEN)
@@ -18,21 +27,11 @@ class PotterKata {
         return differentBookCount * PRICE_FOR_ONE_BOOK
     }
 
-    static getDiscountForDifferentBooks(differentBookCount){
-        switch (differentBookCount){
-            case 2:
-                return 0.05
-            case 3:
-                return 0.1
-            case 4:
-                return 0.2
-            case 5:
-                return 0.25
-        }
-        return 0.0
+    static getDiscountForDifferentBooks(differentBookCount) {
+        return DISCOUNT_FOR_BOOKCOUNT.get(differentBookCount) ?: 0.0
     }
 
-    static List<Integer> assembleDifferentBooksets(frequencyTable){
+    static List<Integer> assembleDifferentBooksets(frequencyTable) {
         def remainingBookCount = getTotalBookCount(frequencyTable)
         def differentBookSets = []
         while (remainingBookCount > 0) {
@@ -45,8 +44,9 @@ class PotterKata {
                     differentBooks++
                 }
 
-                if (remainingBookCount == 4 && remainingBookCount == getDifferentGroupCount(frequencyTable) &&
-                bookId > 1){
+                if (remainingBookCount == BEST_VALUE_FOR_MONEY &&
+                        remainingBookCount == getDifferentGroupCount(frequencyTable) &&
+                        (bookId > COUNT_OF_ALL_EDITIONS - BEST_VALUE_FOR_MONEY)){
                     differentBookSets.add(remainingBookCount)
                     remainingBookCount = 0
                 }
@@ -82,6 +82,8 @@ class PotterKata {
         bookIndicesOfCollection.each{id ->
             frequencyTable.put(id, booksCurrentlyChosen.count(id))
         }
+
+        frequencyTable.sort {-it.value}
 
         return frequencyTable
     }
