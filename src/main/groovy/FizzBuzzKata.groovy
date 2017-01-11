@@ -15,7 +15,7 @@ class FizzBuzzKata {
         }
 
         if (isNumberBuzz(number)) {
-            output = "Buzz"
+            output += "Buzz"
         }
 
         return output
