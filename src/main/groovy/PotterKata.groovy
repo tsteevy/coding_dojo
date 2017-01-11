@@ -13,7 +13,7 @@ class PotterKata {
     ]
 
     static getBookPricesWithCalculatedDiscounts(List<Integer> booksCurrentlyChosen){
-        def differentBookSets = assembleDifferentBooksets(buildFrequencyTable(booksCurrentlyChosen))
+        def differentBookSets = assembleDifferentBookSets(buildFrequencyTable(booksCurrentlyChosen))
         def totalBookPrice = 0.0
         differentBookSets.each { count ->
             totalBookPrice = totalBookPrice + getStandardPriceForSet(count) *
@@ -31,7 +31,7 @@ class PotterKata {
         return DISCOUNT_FOR_BOOKCOUNT.get(differentBookCount) ?: 0.0
     }
 
-    static List<Integer> assembleDifferentBooksets(frequencyTable) {
+    static List<Integer> assembleDifferentBookSets(frequencyTable) {
         def remainingBookCount = getTotalBookCount(frequencyTable)
         def differentBookSets = []
         while (remainingBookCount > 0) {
@@ -82,8 +82,6 @@ class PotterKata {
         bookIndicesOfCollection.each{id ->
             frequencyTable.put(id, booksCurrentlyChosen.count(id))
         }
-
-        frequencyTable.sort {-it.value}
 
         return frequencyTable
     }
