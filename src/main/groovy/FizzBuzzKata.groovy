@@ -6,7 +6,7 @@ class FizzBuzzKata {
     static getOutputForNumber(number) {
         def output = ""
 
-        if (!(number % 3 == 0 || number % 5 == 0)){
+        if (!(isNumberFizz(number) || isNumberBuzz(number))){
             output = number
         }
 
@@ -22,7 +22,7 @@ class FizzBuzzKata {
     }
 
     static isNumberFizz(number) {
-        return (number % 3 == 0)
+        return (number % 3 == 0 || number.toString().contains('3'))
     }
 
     static isNumberBuzz(number) {
