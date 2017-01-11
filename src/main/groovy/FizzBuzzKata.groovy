@@ -14,10 +14,18 @@ class FizzBuzzKata {
             output = "Fizz"
         }
 
+        if (isNumberBuzz(number)) {
+            output = "Buzz"
+        }
+
         return output
     }
 
     static isNumberFizz(number) {
         return (number % 3 == 0)
+    }
+
+    static isNumberBuzz(number) {
+        return (number % 5 == 0)
     }
 }
