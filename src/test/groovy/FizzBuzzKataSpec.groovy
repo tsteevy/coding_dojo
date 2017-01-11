@@ -16,4 +16,8 @@ class FizzBuzzKataSpec extends Specification{
     def "A number divisible by 3 AND 5 returns FizzBuzz"() {
         expect: "FizzBuzz" == FizzBuzzKata.getOutputForNumber(15)
     }
+
+    def "If a number contains a 3 return Fizz"() {
+        expect: "Fizz" == FizzBuzzKata.getOutputForNumber(32)
+    }
 }
