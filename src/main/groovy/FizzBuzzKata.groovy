@@ -26,6 +26,6 @@ class FizzBuzzKata {
     }
 
     static isNumberBuzz(number) {
-        return (number % 5 == 0)
+        return (number % 5 == 0 || number.toString().contains('5'))
     }
 }

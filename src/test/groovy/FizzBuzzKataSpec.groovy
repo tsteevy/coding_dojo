@@ -20,4 +20,12 @@ class FizzBuzzKataSpec extends Specification{
     def "If a number contains a 3 return Fizz"() {
         expect: "Fizz" == FizzBuzzKata.getOutputForNumber(32)
     }
+
+    def "If a number contains a 5 return Buzz"() {
+        expect: "Buzz" == FizzBuzzKata.getOutputForNumber(52)
+    }
+
+    def "If a number contains a 3 and 5 return FizzBuzz"() {
+        expect: "FizzBuzz" == FizzBuzzKata.getOutputForNumber(53)
+    }
 }
