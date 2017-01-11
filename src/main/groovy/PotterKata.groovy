@@ -31,7 +31,7 @@ class PotterKata {
         return DISCOUNT_FOR_BOOKCOUNT.get(differentBookCount) ?: 0.0
     }
 
-    static List<Integer> assembleDifferentBookSets(frequencyTable) {
+    static assembleDifferentBookSets(frequencyTable) {
         def remainingBookCount = getTotalBookCount(frequencyTable)
         def differentBookSets = []
         while (remainingBookCount > 0) {
