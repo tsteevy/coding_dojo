@@ -40,12 +40,8 @@ class PotterKataSpec extends Specification{
         potterKata.priceService = Mock(PriceService)
         potterKata.priceService.getStandardPriceForSet(3) >> 3 * 8
         potterKata.priceService.getStandardPriceForSet(4) >> 4 * 8
-        potterKata.priceService.getDiscountForDifferentBooks(0) >> 0
-        potterKata.priceService.getDiscountForDifferentBooks(1) >> 0
-        potterKata.priceService.getDiscountForDifferentBooks(2) >> 0.05
         potterKata.priceService.getDiscountForDifferentBooks(3) >> 0.10
         potterKata.priceService.getDiscountForDifferentBooks(4) >> 0.20
-        potterKata.priceService.getDiscountForDifferentBooks(5) >> 0.25
         expect: 51.20 == potterKata.getBookPricesWithCalculatedDiscounts([0, 0, 1, 1, 2, 2, 3, 4])
     }
 
